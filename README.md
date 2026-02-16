@@ -41,6 +41,23 @@ node client.js
 SERVER_URL=wss://your-render-app.onrender.com node client.js
 ```
 
+## How it works (Architecture)
+
+```mermaid
+graph LR
+    A[Person 1] <-->|Secure WebSocket| B(Relay Server)
+    B <-->|Secure WebSocket| C[Person 2]
+```
+
+Actually, here's the low-level view:
+
+```
+┌──────────┐      (WSS)      ┌──────────────┐      (WSS)      ┌──────────┐
+│ Person 1 │ <─────────────> │ Relay node   │ <─────────────> │ Person 2 │
+│ terminal │                 │ (no storage) │                 │ terminal │
+└──────────┘                 └──────────────┘                 └──────────┘
+```
+
 ## Rules of the Void
 - No logs.
 - No storage.

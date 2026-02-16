@@ -5,7 +5,7 @@ const WebSocket = require('ws');
 const chalk = require('chalk');
 
 // ── Config ───────────────────────────────────────────────────────────
-const SERVER_URL = process.env.SERVER_URL || 'ws://localhost:8080';
+const SERVER_URL = process.env.SERVER_URL || 'wss://secure-channel.onrender.com';
 let encryptionEnabled = false;
 let codename = '';
 

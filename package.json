@@ -1,0 +1,17 @@
+{
+  "name": "secure-channel",
+  "version": "1.0.0",
+  "description": "Terminal-based secure WebSocket chat system",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "client": "node client.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "ws": "^8.16.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

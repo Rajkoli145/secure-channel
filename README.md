@@ -6,7 +6,10 @@ Want to chat securely with *someone* hmmhmm umm? We got you. This is a terminal-
 
 ## Getting Started (The Local Secret)
 
+
 ```bash
+#fork the repo
+#clone the fork repo
 # Open terminal in your mac
 # Get the goods
 npm install

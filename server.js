@@ -40,15 +40,18 @@ wss.on('connection', (ws) => {
 
       // System join/leave events
       if (msg.type === 'join') {
+        ws.codename = msg.codename; // Store codename for offline broadcast
         log(`  codename acquired: ${msg.codename}`);
-        broadcast(ws, { type: 'system', text: `${msg.codename} has entered the channel.` });
+        broadcast(ws, { type: 'system', text: `${msg.codename} is now ONLINE` });
         return;
       }
 
       // Nick change
       if (msg.type === 'nick') {
-        log(`  codename changed: ${msg.oldName} → ${msg.newName}`);
-        broadcast(ws, { type: 'system', text: `${msg.oldName} is now known as ${msg.newName}` });
+        const oldName = ws.codename || msg.oldName;
+        ws.codename = msg.newName;
+        log(`  codename changed: ${oldName} → ${msg.newName}`);
+        broadcast(ws, { type: 'system', text: `${oldName} is now known as ${msg.newName}` });
         return;
       }
 
@@ -62,6 +65,9 @@ wss.on('connection', (ws) => {
   ws.on('close', () => {
     clients.delete(ws);
     log(`- link severed      [${clients.size} active]`);
+    if (ws.codename) {
+      broadcast(ws, { type: 'system', text: `${ws.codename} is now OFFLINE` });
+    }
   });
 
   ws.on('error', () => {

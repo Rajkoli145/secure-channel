@@ -30,6 +30,12 @@ function clearLine() {
     process.stdout.cursorTo(0);
 }
 
+function clearInputLine() {
+    process.stdout.moveCursor(0, -1);
+    process.stdout.clearLine(0);
+    process.stdout.cursorTo(0);
+}
+
 // ── Encoding ─────────────────────────────────────────────────────────
 function encode(text) {
     return Buffer.from(text, 'utf-8').toString('base64');
@@ -234,10 +240,8 @@ async function main() {
         // Prompt loop
         const prompt = () => {
             rl.question(dim('  > '), async (input) => {
-                if (!input.trim()) {
-                    prompt();
-                    return;
-                }
+                // Clear the raw input line to prevent duplication
+                clearInputLine();
 
                 // Check for commands
                 const isCommand = await handleCommand(input, ws, rl);
